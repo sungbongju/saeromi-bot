@@ -60,10 +60,13 @@
 
 .sideBySide .videoWrap,
 .sideBySide .cameraPreview {
-  height: min(46vh, 400px);
-  width: auto;
-  max-width: calc(50% - 8px);
-  aspect-ratio: 3/4;
+  flex: 0 0 auto;
+  width: min(46%, 205px);
+  max-width: 205px;
+  min-width: 0;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 3 / 4;
 }
 
 /* 컨트롤은 줄어들지 않게 — 미디어 스테이지(flex:1)가 남는 공간을 흡수 */
