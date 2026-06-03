@@ -223,8 +223,9 @@ const VRMAvatar = forwardRef(function VRMAvatar(
           headNode.getWorldPosition(p)
           headY = p.y
         }
-        camera.position.set(0, headY - 0.04, 1.0)
-        camera.lookAt(0, headY - 0.08, 0)
+        // 줌아웃 + 시선 약간 아래로 → 머리 위 여백 확보(머리 잘림 방지), 상반신까지 보임
+        camera.position.set(0, headY - 0.12, 1.35)
+        camera.lookAt(0, headY - 0.16, 0)
 
         // 미세 호흡용 — chest(없으면 spine)의 rest 회전 보관
         const chest =
