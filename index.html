@@ -43,6 +43,23 @@
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
     />
+
+    <!-- 카카오 JavaScript SDK + init (Vercel env VITE_KAKAO_JS_KEY 설정 시 카카오 로그인 활성화) -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        var KAKAO_JS_KEY = '%VITE_KAKAO_JS_KEY%';
+        if (!KAKAO_JS_KEY || KAKAO_JS_KEY === '%' + 'VITE_KAKAO_JS_KEY%') {
+          console.warn('[Kakao] VITE_KAKAO_JS_KEY 미설정 — 카카오 로그인 비활성. Vercel env 또는 .env 에 추가하세요.');
+        } else {
+          try {
+            if (window.Kakao && !window.Kakao.isInitialized()) {
+              window.Kakao.init(KAKAO_JS_KEY);
+            }
+          } catch (e) { console.error('Kakao init error:', e); }
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
