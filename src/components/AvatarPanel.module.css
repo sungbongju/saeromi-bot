@@ -2,7 +2,7 @@
 .panel {
   width: 100%;
   flex: 0 0 auto;
-  max-height: 50vh;
+  max-height: 64vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -60,7 +60,7 @@
 
 .sideBySide .videoWrap,
 .sideBySide .cameraPreview {
-  height: min(34vh, 290px);
+  height: min(46vh, 400px);
   width: auto;
   max-width: calc(50% - 8px);
   aspect-ratio: 3/4;
