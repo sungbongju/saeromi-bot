@@ -48,7 +48,7 @@ export default function App() {
   const [videoReady, setVideoReady]     = useState(false)     // VRM 로드 완료
   const [isListening, setIsListening]   = useState(false)
   const [autoListen, setAutoListen]     = useState(false)
-  const [conversationMode, setConversationMode] = useState('ttt')  // ftf | sts | ttt (기본 텍스트)
+  const [conversationMode, setConversationMode] = useState('ftf')  // ftf | sts | ttt (기본: 아바타+캠 FTF)
   const [cameraStream, setCameraStream] = useState(null)
 
   const vrmAvatarRef      = useRef(null)
@@ -61,7 +61,7 @@ export default function App() {
   const ttsRunningRef     = useRef(false)
   const ttsAbortRef       = useRef(false)
   const sessionIdRef      = useRef(null)
-  const conversationModeRef = useRef('ttt')
+  const conversationModeRef = useRef('ftf')
 
   const handleAvatarReady = useCallback(() => { setVideoReady(true) }, [])
 
