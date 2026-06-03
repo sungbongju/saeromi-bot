@@ -1,13 +1,44 @@
-.app {
+.app { min-height: 100vh; min-height: 100dvh; }
+
+/* 데스크톱: 사이드바가 열리면 본문이 왼쪽 절반으로 밀려난다 */
+.main { transition: margin-right 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+.shifted .main { margin-right: var(--sidebar-w); }
+
+/* 우측 가장자리에서 튀어나온 사이드바 열기 탭 */
+.handle {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 55;
   display: flex;
-  height: 100vh;
-  height: 100dvh;        /* 모바일 Safari 주소창 보정 */
-  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: var(--teal);
+  color: #fff;
+  padding: 18px 11px;
+  border-radius: 16px 0 0 16px;
+  box-shadow: -8px 0 24px rgba(13, 109, 98, 0.34);
+  transition: transform 0.16s, background 0.15s;
+  animation: handlePulse 2.6s ease-in-out infinite;
+}
+.handle:hover { background: var(--teal-deep); transform: translateY(-50%) translateX(-3px); }
+.handleIcon { font-size: 22px; }
+.handleText {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
-/* ── 모바일 (≤768px): 위·아래 split ── */
+@keyframes handlePulse {
+  0%, 100% { box-shadow: -8px 0 24px rgba(13, 109, 98, 0.34); }
+  50% { box-shadow: -8px 0 30px rgba(18, 147, 127, 0.6); }
+}
+
+/* 모바일: 사이드바가 전체 폭 오버레이 → 본문은 밀지 않음 */
 @media (max-width: 768px) {
-  .app {
-    flex-direction: column;
-  }
+  .shifted .main { margin-right: 0; }
 }
