@@ -1,10 +1,14 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, lazy, Suspense } from 'react'
 import Landing from './components/landing/Landing'
-import SaeromiSidebar from './components/SaeromiSidebar'
+import ChatPanel from './components/ChatPanel'
+import AuthModal from './components/AuthModal'
 import styles from './App.module.css'
-import { newSessionId, saveChat } from './lib/api'
+import { newSessionId, saveChat, getUser, clearAuth, verifyToken } from './lib/api'
 import { MicRecorder, isMicRecorderSupported } from './lib/stt'
 import { demoReply } from './lib/saeromiDemo'
+
+// three.js/VRM은 무거우므로 사이드바 첫 오픈 시 지연 로드 (랜딩 첫 로드 경량 유지)
+const AvatarPanel = lazy(() => import('./components/AvatarPanel'))
 
 // 새로미 — 랜딩 + 펼치면 화면 절반을 차지하는 아바타 사이드바.
 // 사이드바는 ftf(아바타+카메라+음성) / sts(아바타+음성) / ttt(텍스트) 3모드 + 실제 Gemma4 채팅.
@@ -35,6 +39,9 @@ function normalizeTtsText(text) {
 
 export default function App() {
   const [open, setOpen]                 = useState(false)     // 사이드바 펼침 여부
+  const [everOpened, setEverOpened]     = useState(false)     // 첫 오픈 후 봇 컴포넌트 마운트 유지
+  const [user, setUser]                 = useState(getUser()) // 로그인 사용자(없으면 null=익명)
+  const [authOpen, setAuthOpen]         = useState(false)     // 로그인 모달(로드 시 자동 오픈 X)
   const [status, setStatus]             = useState('idle')    // idle | connecting | connected | speaking
   const [messages, setMessages]         = useState([])
   const [isProcessing, setIsProcessing] = useState(false)
@@ -57,6 +64,10 @@ export default function App() {
   const conversationModeRef = useRef('ttt')
 
   const handleAvatarReady = useCallback(() => { setVideoReady(true) }, [])
+
+  const openSidebar = useCallback(() => { setOpen(true); setEverOpened(true) }, [])
+  const handleLogout = useCallback(() => { clearAuth(); setUser(null) }, [])
+  useEffect(() => { verifyToken().then(u => { if (u) setUser(u) }) }, [])
 
   const micRecorderRef    = useRef(null)
   const isSpeakingRef     = useRef(false)
@@ -452,35 +463,52 @@ export default function App() {
   return (
     <div className={`${styles.app} ${open ? styles.shifted : ''}`}>
       <div className={styles.main}>
-        <Landing onOpenChat={() => setOpen(true)} />
+        <Landing onOpenChat={openSidebar} />
       </div>
 
-      <SaeromiSidebar
-        open={open}
-        onClose={() => setOpen(false)}
-        status={status}
-        mode={conversationMode}
-        onModeChange={changeConversationMode}
-        vrmAvatarRef={vrmAvatarRef}
-        onAvatarReady={handleAvatarReady}
-        userVideoRef={userVideoRef}
-        videoReady={videoReady}
-        cameraActive={Boolean(cameraStream)}
-        onStart={startConversation}
-        onStop={stopAvatar}
-        onInterrupt={interruptAvatar}
-        messages={messages}
-        isProcessing={isProcessing}
-        onSend={sendMessage}
-        connected={isChatConnected}
-        isListening={isListening}
-        onToggleMic={toggleMic}
-        micEnabled={conversationMode !== 'ttt' && isChatConnected}
-        micAvailable={conversationMode !== 'ttt'}
-      />
+      <aside className={`${styles.botSidebar} ${open ? styles.open : ''}`} aria-hidden={!open}>
+        <div className={styles.botHeader}>
+          <div className={styles.botBrand}><span className={styles.botMark}>💡</span><b>새로미</b></div>
+          <button className={styles.botClose} onClick={() => setOpen(false)} aria-label="사이드바 닫기">✕</button>
+        </div>
+        {everOpened && (
+          <Suspense fallback={<div className={styles.botLoading}><span className={styles.botSpinner} />봇 불러오는 중…</div>}>
+            <AvatarPanel
+              status={status}
+              mode={conversationMode}
+              onModeChange={changeConversationMode}
+              vrmAvatarRef={vrmAvatarRef}
+              onAvatarReady={handleAvatarReady}
+              userVideoRef={userVideoRef}
+              videoReady={videoReady}
+              cameraActive={Boolean(cameraStream)}
+              onStart={startConversation}
+              onStop={stopAvatar}
+              onInterrupt={interruptAvatar}
+              isListening={isListening}
+            />
+            <ChatPanel
+              messages={messages}
+              isProcessing={isProcessing}
+              onSend={sendMessage}
+              connected={isChatConnected}
+              isListening={isListening}
+              onToggleMic={toggleMic}
+              micEnabled={conversationMode !== 'ttt' && isChatConnected}
+              micAvailable={conversationMode !== 'ttt'}
+              mode={conversationMode}
+              user={user}
+              onLoginClick={() => setAuthOpen(true)}
+              onLogout={handleLogout}
+            />
+          </Suspense>
+        )}
+      </aside>
+
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} onSuccess={(u) => setUser(u)} />
 
       {!open && (
-        <button className={styles.handle} onClick={() => setOpen(true)} aria-label="새로미와 대화 열기">
+        <button className={styles.handle} onClick={openSidebar} aria-label="새로미와 대화 열기">
           <span className={styles.handleIcon}>💡</span>
           <span className={styles.handleText}>새로미와 대화</span>
         </button>

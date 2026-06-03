@@ -1,10 +1,12 @@
+/* 사이드바 안에서 AvatarPanel 아래에 위치, 남은 공간 채움 */
 .panel {
-  width: 45%;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  background: var(--panel);
-  border-left: 1px solid var(--border);
-  box-shadow: -8px 0 24px rgba(58, 40, 23, 0.05);
+  background: transparent;
+  border-top: 1px solid var(--border);
   overflow: hidden;
   z-index: 1;
 }
@@ -90,7 +92,7 @@
   font-family: inherit;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
-  box-shadow: 0 2px 6px rgba(184, 138, 94, 0.25);
+  box-shadow: 0 2px 6px rgba(18, 147, 127, 0.25);
 }
 
 .loginBtn:hover {
@@ -100,8 +102,8 @@
 
 .surveyBtn {
   flex-shrink: 0;
-  background: rgba(184,138,94,0.12);
-  border: 1px solid rgba(184,138,94,0.45);
+  background: rgba(18, 147, 127,0.12);
+  border: 1px solid rgba(18, 147, 127,0.45);
   color: var(--gold);
   border-radius: 6px;
   padding: 4px 12px;
@@ -113,7 +115,7 @@
 }
 
 .surveyBtn:hover {
-  background: rgba(184,138,94,0.22);
+  background: rgba(18, 147, 127,0.22);
 }
 
 .themeBtn {
@@ -176,7 +178,7 @@
   height: 32px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold-dim), var(--gold));
-  color: #0a0b0f;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -208,8 +210,8 @@
 
 /* 학과 컨택 카드 — 답변 아래 별도 표시 */
 .contactCard {
-  background: rgba(201, 162, 126, 0.08);
-  border: 1px solid rgba(201, 162, 126, 0.35);
+  background: rgba(18, 147, 127, 0.08);
+  border: 1px solid rgba(18, 147, 127, 0.35);
   border-radius: 14px;
   padding: 10px 14px;
   display: flex;
@@ -258,12 +260,12 @@
 }
 
 .contactRow:hover {
-  background: rgba(201, 162, 126, 0.12);
-  border-color: rgba(201, 162, 126, 0.3);
+  background: rgba(18, 147, 127, 0.12);
+  border-color: rgba(18, 147, 127, 0.3);
 }
 
 .contactRow:active {
-  background: rgba(201, 162, 126, 0.18);
+  background: rgba(18, 147, 127, 0.18);
 }
 
 .contactLabel {
@@ -281,7 +283,7 @@
 }
 
 .assistantBubble {
-  background: rgba(255,255,255,0.05);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-bottom-left-radius: 6px;
   color: var(--text);
@@ -289,7 +291,7 @@
 
 .userBubble {
   background: var(--gold);
-  color: #0a0b0f;
+  color: #ffffff;
   border-bottom-right-radius: 6px;
   font-weight: 500;
 }
@@ -330,7 +332,7 @@
 
 .textarea {
   flex: 1;
-  background: rgba(255,255,255,0.04);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 12px 16px;
@@ -350,8 +352,8 @@
 }
 
 .textarea:focus {
-  border-color: rgba(201,162,126,0.4);
-  background: rgba(255,255,255,0.06);
+  border-color: var(--teal);
+  background: #ffffff;
 }
 
 .textarea:disabled {
@@ -364,7 +366,7 @@
   height: 46px;
   border-radius: 14px;
   background: var(--gold);
-  color: #0a0b0f;
+  color: #ffffff;
   border: none;
   font-size: 20px;
   font-weight: 700;
@@ -377,7 +379,7 @@
 }
 
 .sendBtn:hover:not(:disabled) {
-  background: #d4af8e;
+  background: #0a4f47;
   transform: scale(1.05);
 }
 

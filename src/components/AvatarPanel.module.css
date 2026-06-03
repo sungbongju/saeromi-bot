@@ -1,19 +1,22 @@
+/* 사이드바 안에서 ChatPanel 위에 세로로 쌓임 (원래 2패널 가로 배치 → 세로 스택) */
 .panel {
-  width: 55%;
+  width: 100%;
+  flex: 0 0 auto;
+  max-height: 50vh;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
+  background: transparent;
   overflow-y: auto;
-  gap: clamp(10px, 1.4vh, 16px);
-  padding: clamp(16px, 2.6vh, 28px) clamp(24px, 4vw, 56px);
+  gap: clamp(8px, 1.2vh, 14px);
+  padding: clamp(12px, 1.8vh, 20px) clamp(14px, 3vw, 24px);
 }
 
 .mediaStage {
   width: min(680px, 100%);
-  max-height: min(62vh, 640px);
+  max-height: min(32vh, 360px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,13 +48,13 @@
 .videoWrap {
   position: relative;
   width: 100%;
-  max-width: 420px;
-  max-height: min(58vh, 620px);
+  max-width: 300px;
+  max-height: min(32vh, 360px);
   aspect-ratio: 9/16;
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-media), 0 0 0 1px rgba(184,138,94,0.1);
+  box-shadow: var(--shadow-media), 0 0 0 1px rgba(18, 147, 127,0.1);
   background: var(--media-bg);
 }
 
@@ -97,8 +100,8 @@
   width: 96px;
   height: 96px;
   border-radius: 18px;
-  background: rgba(184, 138, 94, 0.22);
-  border: 1px solid rgba(139, 90, 43, 0.45);
+  background: rgba(18, 147, 127, 0.22);
+  border: 1px solid rgba(13, 109, 98, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -242,8 +245,8 @@
   border-radius: 24px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(201,162,126,0.34);
-  background: rgba(201,162,126,0.1);
+  border: 1px solid rgba(18, 147, 127,0.34);
+  background: rgba(18, 147, 127,0.1);
   color: var(--gold);
   font-size: 24px;
   font-weight: 800;
@@ -268,8 +271,8 @@
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  border: 1px solid rgba(201,162,126,0.28);
-  background: rgba(201,162,126,0.1);
+  border: 1px solid rgba(18, 147, 127,0.28);
+  background: rgba(18, 147, 127,0.1);
   color: var(--gold);
   display: flex;
   align-items: center;
@@ -440,8 +443,8 @@
 }
 
 .optionToggleOn {
-  background: rgba(184,138,94,0.18);
-  border-color: rgba(184,138,94,0.55);
+  background: rgba(18, 147, 127,0.18);
+  border-color: rgba(18, 147, 127,0.55);
   color: var(--text);
 }
 
@@ -483,8 +486,8 @@
 }
 
 .optionToggleOn .toggleTrack {
-  background: rgba(184,138,94,0.45);
-  border-color: rgba(139,90,43,0.55);
+  background: rgba(18, 147, 127,0.45);
+  border-color: rgba(13, 109, 98,0.55);
 }
 
 .optionToggleOn .toggleTrack span {
@@ -571,13 +574,13 @@
   cursor: pointer;
   transition: all 0.2s ease;
   letter-spacing: -0.2px;
-  box-shadow: 0 4px 24px rgba(184, 138, 94, 0.30);
+  box-shadow: 0 4px 24px rgba(18, 147, 127, 0.30);
 }
 
 .startBtn:hover:not(:disabled) {
-  background: #d4af8e;
+  background: #0a4f47;
   transform: translateY(-1px);
-  box-shadow: 0 8px 32px rgba(201,162,126,0.4);
+  box-shadow: 0 8px 32px rgba(18, 147, 127,0.4);
 }
 
 .startBtn:disabled {

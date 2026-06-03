@@ -37,6 +37,34 @@
 
   /* 사이드바 너비 — 펼치면 화면 절반 (데스크톱) */
   --sidebar-w: clamp(380px, 50vw, 660px);
+
+  /* ── 원본 봇 컴포넌트(AvatarPanel/ChatPanel) 호환 토큰 — 새로미 팔레트로 매핑 ── */
+  --bg:            #f6fbf7;
+  --panel:         #f4faf5;
+  --border:        rgba(13, 109, 98, 0.16);
+  --gold:          #0d6d62;   /* primary: 버튼·유저버블·아바타 */
+  --gold-dim:      #0a4f47;
+  --text:          #1c2b27;
+  --muted:         #5f726c;
+  --blue:          #2563eb;
+  --green:         #16a34a;
+  --media-bg:      #e7f2ea;
+  --card-bg-from:  #ffffff;
+  --card-bg-to:    #e7f2ea;
+  --stage-text:    #1c2b27;
+  --stage-muted:   #5f726c;
+  --overlay-soft:  rgba(13, 109, 98, 0.05);
+  --overlay-track: rgba(13, 109, 98, 0.14);
+  --shadow-card:   0 14px 40px rgba(11, 63, 57, 0.10);
+  --shadow-media:  0 14px 42px rgba(11, 63, 57, 0.14);
+  --accent:        #12937f;
+  --bar-grad-1:    linear-gradient(to top, #0a4f47, #0d6d62 55%, #12937f);
+  --bar-grad-2:    linear-gradient(to top, #0d6d62, #12937f);
+  --bar-grad-3:    linear-gradient(to top, #0a4f47, #12937f);
+  --bar-grad-4:    linear-gradient(to top, #0d6d62, #14a58c);
+  --bar-grad-5:    linear-gradient(to top, #12937f, #7fe0cd);
+  --bar-shadow:    0 0 7px rgba(18, 147, 127, 0.35);
+  --vis-glow:      drop-shadow(0 0 14px rgba(18, 147, 127, 0.28));
 }
 
 html, body, #root { min-height: 100%; }

@@ -117,19 +117,6 @@ export default function ChatPanel({
           <span className={styles.headerTitle}>대화</span>
         </div>
         <div className={styles.userArea}>
-          <button
-            type="button"
-            onClick={onToggleTheme}
-            className={styles.themeBtn}
-            title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
-            aria-label="테마 전환"
-          >{theme === 'dark' ? '☀️' : '🌙'}</button>
-          <button
-            type="button"
-            onClick={onOpenSurvey}
-            className={styles.surveyBtn}
-            title="이 봇에 대한 의견 남기기"
-          >설문</button>
           {user ? (
             <>
               <span className={`${styles.headerSub} ${styles.userGreeting}`}>
