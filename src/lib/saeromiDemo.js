@@ -243,3 +243,10 @@ export function respond(value) {
   // 그 외 → 자유 입력으로 처리
   return freeText(v)
 }
+
+// 백엔드(Gemma4)가 없을 때(로컬 vite dev 등) 자유 입력에 대한 폴백 답변 1개(plain text).
+// 실제 배포(Vercel + TEAM_ID)에서는 /api/chat-stream 의 Gemma4 응답이 우선.
+export function demoReply(text) {
+  const turns = freeText(text || '')
+  return turns.filter((t) => t.text).map((t) => t.text.replace(/\*\*/g, '')).join('\n\n')
+}
